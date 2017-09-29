@@ -100,3 +100,4 @@ c:\users\juanji\source\repos\WEbApi\WEbApi\obj\Debug\WEbApi.dll
 c:\users\juanji\source\repos\WEbApi\WEbApi\obj\Debug\WEbApi.pdb
 c:\users\juanji\source\repos\WEbApi\WEbApi\obj\Debug\WEbApi.Migrations.InitialModel.resources
 c:\users\juanji\source\repos\WEbApi\WEbApi\obj\Debug\WEbApi.csproj.GenerateResource.Cache
+C:\Users\Juanji\source\repos\WEbApi\WEbApi\bin\XmlDocument.xml

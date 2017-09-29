@@ -23,6 +23,10 @@ namespace WEbApi.Controllers
             database.Dispose();
         }
 
+        /// <summary>
+        /// Gets all customers.
+        /// </summary>
+        /// 
         [HttpGet]
         public IHttpActionResult GetCustomers()
         {
@@ -51,7 +55,11 @@ namespace WEbApi.Controllers
                 return Ok(0);
             }
         }
-        
+
+        /// <summary>
+        /// Get customer by Id.
+        /// </summary>
+        /// <param name="id">The ID of the customer.</param>
         [HttpGet]
         public IHttpActionResult GetCustomer(int id)
         {
@@ -81,6 +89,9 @@ namespace WEbApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Create a customer.
+        /// </summary>
         [HttpPost]
         public IHttpActionResult PostCreateCustomer(Customer model)
         {
@@ -105,6 +116,10 @@ namespace WEbApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Get order by Id of the customer.
+        /// </summary>
+        /// <param name="id">The ID of the customer.</param>
         [HttpGet]
         public IHttpActionResult GetOrders(int id)
         {
@@ -134,6 +149,10 @@ namespace WEbApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Get an order by Id.
+        /// </summary>
+        /// <param name="id">The ID of the order.</param>
         [HttpGet]
         public IHttpActionResult GetOrder(int id)
         {
@@ -162,6 +181,9 @@ namespace WEbApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Create an order..
+        /// </summary>
         [HttpPost]
         public IHttpActionResult PostCreateOrder(Order.OrderDetail model)
         {
