@@ -14,6 +14,6 @@ namespace WEbApi.Models
         }
 
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Order> Standards { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
