@@ -12,6 +12,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="ApplicationInsights.config">
       <publishTime>09/29/2017 10:19:32</publishTime>
     </File>
+    <File Include="App_Data/XmlDocument.xml">
+      <publishTime>09/29/2017 14:05:58</publishTime>
+    </File>
     <File Include="Areas/HelpPage/HelpPage.css">
       <publishTime>09/29/2017 10:19:30</publishTime>
     </File>
@@ -295,10 +298,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/WEbApi.dll">
-      <publishTime>09/29/2017 13:00:04</publishTime>
+      <publishTime>09/29/2017 14:06:09</publishTime>
     </File>
     <File Include="bin/WEbApi.pdb">
-      <publishTime>09/29/2017 13:00:04</publishTime>
+      <publishTime>09/29/2017 14:06:09</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>10/09/2013 17:28:38</publishTime>
@@ -355,13 +358,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/29/2017 10:19:31</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>09/29/2017 10:19:14</publishTime>
+      <publishTime>09/29/2017 13:41:23</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>09/29/2017 10:19:14</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/29/2017 10:19:14</publishTime>
+      <publishTime>09/29/2017 13:28:47</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/29/2017 10:19:14</publishTime>
@@ -370,7 +373,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/29/2017 10:19:14</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/29/2017 12:37:27</publishTime>
+      <publishTime>09/29/2017 14:00:23</publishTime>
     </File>
   </ItemGroup>
 </Project>

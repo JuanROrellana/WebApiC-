@@ -8,7 +8,7 @@ namespace WEbApi.Models
 {
     public class DBContext : DbContext
     {
-        public DBContext(): base("DefaultConnection1")
+        public DBContext(): base("DefaultConnection")
         {
 
         }

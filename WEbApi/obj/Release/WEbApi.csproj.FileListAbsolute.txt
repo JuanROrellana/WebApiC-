@@ -99,3 +99,4 @@ C:\Users\Juanji\source\repos\WEbApi\WEbApi\obj\Release\WEbApi.csproj.GenerateRes
 C:\Users\Juanji\source\repos\WEbApi\WEbApi\obj\Release\WEbApi.csproj.CoreCompileInputs.cache
 C:\Users\Juanji\source\repos\WEbApi\WEbApi\obj\Release\WEbApi.dll
 C:\Users\Juanji\source\repos\WEbApi\WEbApi\obj\Release\WEbApi.pdb
+C:\Users\Juanji\source\repos\WEbApi\WEbApi\obj\Release\WEbApi.csprojResolveAssemblyReference.cache
