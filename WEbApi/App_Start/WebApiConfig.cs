@@ -9,12 +9,12 @@ namespace WEbApi
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            // o customers\
+            // o customers\{ customerid}
+            // o customers\{ customerid}\orders
+            // o customers\{ customerid}\orders\{ orderid}
 
-            // Web API routes
-            config.MapHttpAttributeRoutes();
-
-           
+            config.MapHttpAttributeRoutes();           
 
             config.Routes.MapHttpRoute("API", "api/{controller}/{action}/{id}", new { id = RouteParameter.Optional });
 
