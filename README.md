@@ -1,3 +1,6 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Before Running the App:
+Modify the app Web.config ConnectionString for your Database. Then run the >Update-Database command on your nugget package console, to create the Database.
+
+Run the App you are good to go.
