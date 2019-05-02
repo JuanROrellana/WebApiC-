@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using WEbApi.Models;
+using WEbApi.Dtos;
 
 namespace WEbApi.Controllers
 {
@@ -13,10 +16,8 @@ namespace WEbApi.Controllers
     {
         private DBContext database = new DBContext();
 
-        public CustomersController()
-        {
-            database = new DBContext();
-        }
+        public CustomersController() => database = new DBContext();
+
 
         protected override void Dispose(bool disposing)
         {
@@ -28,64 +29,62 @@ namespace WEbApi.Controllers
         /// </summary>
         /// 
         [HttpGet]
-        public IHttpActionResult GetCustomers()
+        public async Task<IHttpActionResult> GetCustomers()
         {
             try
             {
-                string url = HttpContext.Current.Request.Url.Authority + "/api/Customers/Customer?id=";
-
-                List<Customer.CustomerDetail> customers =
-                (from u in database.Customers
-                 select new Customer.CustomerDetail
-                 {
-                     CustomerID = u.CustomerID,
-                     Address = u.Address,
-                     CompanyName = u.CompanyName,
-                     ContactName = u.ContactName,
-                     Country = u.Country,
-                     InfoLink = url + u.CustomerID,
-                     TelephoneNumber = u.TelephoneNumber
-                 }).ToList<Customer.CustomerDetail>();
+                var suds = await database.Customers.ToListAsync();
+                var customers = await database.Customers
+                    .Select(c => new CustomerDto ()
+                    {
+                        CustomerID = c.CustomerID,
+                        Address = c.Address,
+                        CompanyName = c.CompanyName,
+                        ContactName = c.ContactName,
+                        Country = c.Country,
+                        //InfoLink = HttpContext.Current.Request.Url.Authority + "/api/Customers/Customer?id=" + c.CustomerID,
+                        TelephoneNumber = c.TelephoneNumber
+                    }).ToListAsync();
 
                 return Ok(customers);
-
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                return Ok(0);
+                return BadRequest(exception.Message);
             }
         }
 
         /// <summary>
         /// Get customer by Id.
         /// </summary>
-        /// <param name="id">The ID of the customer.</param>
+        /// <param name="id">Id of the customer</param>
         [HttpGet]
-        public IHttpActionResult GetCustomer(int id)
+        public async Task<IHttpActionResult> GetCustomer(int id)
         {
             try
             {
-                string url = HttpContext.Current.Request.Url.Authority + "/api/Customers/Customer?id=";
+                var customer =
+                await (from u in database.Customers
+                       where u.CustomerID == id
+                       select new CustomerDto ()
+                       {
+                           CustomerID = u.CustomerID,
+                           Address = u.Address,
+                           CompanyName = u.CompanyName,
+                           ContactName = u.ContactName,
+                           Country = u.Country,
+                           //InfoLink = HttpContext.Current.Request.Url.Authority + "/api/Customers/Customer?id=" + u.CustomerID,
+                           TelephoneNumber = u.TelephoneNumber
+                       }).SingleOrDefaultAsync();
 
-                Customer.CustomerDetail customers =
-                (from u in database.Customers
-                 where u.CustomerID == id
-                 select new Customer.CustomerDetail
-                 {
-                     CustomerID = u.CustomerID,
-                     Address = u.Address,
-                     CompanyName = u.CompanyName,
-                     ContactName = u.ContactName,
-                     Country = u.Country,
-                     InfoLink = url + u.CustomerID,
-                     TelephoneNumber = u.TelephoneNumber
-                 }).SingleOrDefault();
+                if (customer == null)
+                    return NotFound();
 
-                return Ok(customers);
+                return Ok(customer);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                return Ok(0);
+                return BadRequest(exception.Message);
             }
         }
 
@@ -93,11 +92,11 @@ namespace WEbApi.Controllers
         /// Create a customer.
         /// </summary>
         [HttpPost]
-        public IHttpActionResult PostCreateCustomer(Customer model)
+        public async Task<IHttpActionResult> CreateCustomer(Customer model)
         {
             try
             {
-                Customer customer = new Customer
+                var customer = new Customer
                 {
                     Country = model.Country,
                     Address = model.Address,
@@ -107,63 +106,59 @@ namespace WEbApi.Controllers
                 };
 
                 database.Customers.Add(customer);
-                database.SaveChanges();
-                return Ok(customer.CustomerID);
+                await database.SaveChangesAsync();
+
+                return Ok();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                return Ok(0);
+                return BadRequest(exception.Message);
             }
         }
 
         /// <summary>
-        /// Get order by Id of the customer.
+        /// Get orders by Id of the customer.
         /// </summary>
-        /// <param name="id">The ID of the customer.</param>
+        /// <param name="id">Id of the customer.</param>
         [HttpGet]
-        public IHttpActionResult GetOrders(int id)
+        public async Task<IHttpActionResult> GetOrdersByCustomer(int id)
         {
             try
             {
-                string url = HttpContext.Current.Request.Url.Authority + "/api/Customers/Customer?id=";
-
-                List<Order.OrderDetail> orders =
-                (from u in database.Orders
-                 where u.Customers.CustomerID == id
-                 select new Order.OrderDetail
-                 {
-                     OrderID = u.OrderID,
-                     Amount = u.Amount,
-                     Description = u.Description,
-                     Quantity = u.Quantity,
-                     CustomersID = u.Customers.CustomerID,
-                     OrderDate = u.OrderDate.ToString()
-                 }).ToList<Order.OrderDetail>();
+                var orders =
+                await (from u in database.Orders
+                       where u.Customers.CustomerID == id
+                       select new OrderDto
+                       {
+                           OrderID = u.OrderID,
+                           Amount = u.Amount,
+                           Description = u.Description,
+                           Quantity = u.Quantity,
+                           CustomersID = u.Customers.CustomerID,
+                           OrderDate = u.OrderDate.ToString()
+                       }).ToListAsync();
 
                 return Ok(orders);
-
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                return Ok(0);
+                return BadRequest(exception.Message);
             }
         }
 
         /// <summary>
-        /// Get an order by Id.
+        /// Get order by Id.
         /// </summary>
-        /// <param name="id">The ID of the order.</param>
+        /// <param name="id">Order Id</param>
         [HttpGet]
-        public IHttpActionResult GetOrder(int id)
+        public async Task<IHttpActionResult> GetOrder(int id)
         {
             try
             {
-                string url = HttpContext.Current.Request.Url.Authority + "/api/Customers/Customer?id=";
-
-                Order.OrderDetail order =
-                (from u in database.Orders
+                var order =
+                await (from u in database.Orders
                  where u.OrderID == id
-                 select new Order.OrderDetail
+                 select new OrderDto ()
                  {
                      OrderID = u.OrderID,
                      Amount = u.Amount,
@@ -171,25 +166,25 @@ namespace WEbApi.Controllers
                      OrderDate = u.OrderDate.ToString(),
                      Quantity = u.Quantity,
                      CustomersID = u.Customers.CustomerID
-                 }).SingleOrDefault();
+                 }).SingleOrDefaultAsync();
 
                 return Ok(order);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                return Ok(0);
+                return BadRequest(exception.Message);
             }
         }
 
         /// <summary>
-        /// Create an order..
+        /// Create Order
         /// </summary>
         [HttpPost]
-        public IHttpActionResult PostCreateOrder(Order.OrderDetail model)
+        public async Task<IHttpActionResult> CreateOrder(OrderDto model)
         {
             try
             {
-                Order order = new Order
+                var order = new Order
                 {
                     Amount = model.Amount,
                     Description = model.Description,
@@ -199,14 +194,18 @@ namespace WEbApi.Controllers
 
                 database.Orders.Add(order);
 
-                Customer customer = database.Customers.Find(model.CustomersID);
+                var customer = await database.Customers.FindAsync(model.CustomersID);
+
+                if (customer == null)
+                    return NotFound();
+
                 customer.Orders.Add(order);
-                database.SaveChanges();
-                return Ok(order.OrderID);
+                await database.SaveChangesAsync();
+                return Ok();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                return Ok(0);
+                return BadRequest(exception.Message);
             }
         }
 

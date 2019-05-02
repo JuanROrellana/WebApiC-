@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WEbApi.Models
+namespace WEbApi.Dtos
 {
-    public class Customer
+    public class CustomerDto
     {
         public int CustomerID { get; set; }
         public string CompanyName { get; set; }
@@ -13,6 +13,6 @@ namespace WEbApi.Models
         public string Address { get; set; }
         public string ContactName { get; set; }
         public string TelephoneNumber { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        public string InfoLink { get; set; }
     }
 }

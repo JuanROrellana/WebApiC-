@@ -491,28 +491,28 @@
             <summary>
             Get customer by Id.
             </summary>
-            <param name="id">The ID of the customer.</param>
+            <param name="id">Id of the customer</param>
         </member>
-        <member name="M:WEbApi.Controllers.CustomersController.PostCreateCustomer(WEbApi.Models.Customer)">
+        <member name="M:WEbApi.Controllers.CustomersController.CreateCustomer(WEbApi.Models.Customer)">
             <summary>
             Create a customer.
             </summary>
         </member>
-        <member name="M:WEbApi.Controllers.CustomersController.GetOrders(System.Int32)">
+        <member name="M:WEbApi.Controllers.CustomersController.GetOrdersByCustomer(System.Int32)">
             <summary>
-            Get order by Id of the customer.
+            Get orders by Id of the customer.
             </summary>
-            <param name="id">The ID of the customer.</param>
+            <param name="id">Id of the customer.</param>
         </member>
         <member name="M:WEbApi.Controllers.CustomersController.GetOrder(System.Int32)">
             <summary>
-            Get an order by Id.
+            Get order by Id.
             </summary>
-            <param name="id">The ID of the order.</param>
+            <param name="id">Order Id</param>
         </member>
-        <member name="M:WEbApi.Controllers.CustomersController.PostCreateOrder(WEbApi.Models.Order.OrderDetail)">
+        <member name="M:WEbApi.Controllers.CustomersController.CreateOrder(WEbApi.Dtos.OrderDto)">
             <summary>
-            Create an order..
+            Create Order
             </summary>
         </member>
     </members>
